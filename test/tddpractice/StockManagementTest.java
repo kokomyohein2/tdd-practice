@@ -10,28 +10,8 @@ public class StockManagementTest {
 
     @Test
     public void testCanGetACorrectLocatorCode() {
-        ExternalISBNDataService mockWebService = new ExternalISBNDataService() {
-            @Override
-            public StockedBook lookup(String isbn) {
-                return new StockedBook(isbn, "Tom and jerry movie", "J. Stockholms");
-            }
-
-            @Override
-            public StockedBook takeup(String isbn) {
-                return null;
-            }
-        };
-        ExternalISBNDataService mockDbService = new ExternalISBNDataService() {
-            @Override
-            public StockedBook lookup(String isbn) {
-                return null;
-            }
-
-            @Override
-            public StockedBook takeup(String isbn) {
-                return null;
-            }
-        };
+        ExternalISBNDataService mockWebService = isbn -> new StockedBook(isbn, "Tom and jerry movie", "J. Stockholms");
+        ExternalISBNDataService mockDbService = isbn -> null;
 
         StockManager stockManager = new StockManager();
         stockManager.setDbService(mockDbService);
